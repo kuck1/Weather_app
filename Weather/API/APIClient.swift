@@ -32,13 +32,23 @@ extension APIClient {
                 completion(.error(.apiError))
                 return
             }
-            
-            guard let response = response as? HTTPURLResponse, 200..<300 ~= response.statusCode else {
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print(response)
+                return
+            }
+            guard httpResponse.statusCode == 200 else {
+                print(httpResponse.statusCode)
+                print(response)
                 completion(.error(.badResponse))
                 return
             }
+//            guard let response = response as? HTTPURLResponse, 200..<300 ~= response.statusCode else {
+//                completion(.error(.badResponse))
+//                return
+//            }
             
             guard let value = try? JSONDecoder().decode(V.self, from: data!) else {
+//                print(response)
                 completion(.error(.jsonDecoder))
                 return
             }

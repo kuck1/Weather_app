@@ -14,11 +14,13 @@ class WeatherTableViewController: UITableViewController {
         super.viewDidLoad()
         
         let weatherApi = WeatherAPIClient()
+//        let weatherEndpoint = WeatherEndpoint.fiveDayForecast(city: "Atlanta")
+
         let weatherEndpoint = WeatherEndpoint.fiveDayForecast(city: "Atlanta", country: "us")
         weatherApi.weather(with: weatherEndpoint) { (either) in
             switch either {
-            case .value(let forecastText):
-                print(forecastText)
+            case .value(let Main):
+                print(Main)
             case .error(let error):
                 print(error)
             }

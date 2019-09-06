@@ -9,36 +9,22 @@
 import Foundation
 
 class Weather: Codable {
-    let forecast : Forecast
+    let list : List
 }
 
 
-struct Forecast: Codable {
-    let forecastText : ForecastText
+struct List: Codable {
+    let main : Main
+
+    private enum CodeingKeys: String, CodingKey {
+        case main = "main"
+    }
+}
+
+struct Main: Codable {
+    let temp : Int
     
     private enum CodeingKeys: String, CodingKey {
-        case forecastText = "txt_forecast"
-    }
-}
-
-struct ForecastText: Codable {
-    let date : String
-    let forecastDays : ForecastDay
-    
-    private enum CodingKeys: String, CodingKey {
-        case date
-        case forecastDays = "forecastday"
-    }
-}
-
-struct ForecastDay: Codable {
-    let iconUrl : String
-    let day : String
-    let description : String
-    
-    private enum CodingKeys: String, CodingKey {
-        case iconUrl = "icon_url"
-        case day = "title"
-        case description = "fcttext"
+        case temp = "temp"
     }
 }
