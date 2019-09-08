@@ -9,22 +9,42 @@
 import Foundation
 
 class Weather: Codable {
-    let list : List
+    let weather : Weather1
 }
 
 
-struct List: Codable {
-    let main : Main
-
-    private enum CodeingKeys: String, CodingKey {
-        case main = "main"
-    }
-}
-
-struct Main: Codable {
-    let temp : Int
+struct Weather1: Codable {
+    let id : Int
+    let main : String
+    let description : String
+    let icon : String
     
     private enum CodeingKeys: String, CodingKey {
-        case temp = "temp"
+        case id = "id"
+        case main = "main"
+        case description = "description"
+        case icon = "icon"
     }
 }
+
+
+//class Weather: Codable {
+//    let list : List
+//}
+//
+//
+//struct List: Codable {
+//    let main : Main
+//
+//    private enum CodeingKeys: String, CodingKey {
+//        case main = "main"
+//    }
+//}
+//
+//struct Main: Codable {
+//    let temp : Int
+//
+//    private enum CodeingKeys: String, CodingKey {
+//        case temp = "temp"
+//    }
+//}

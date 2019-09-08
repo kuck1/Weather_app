@@ -22,9 +22,17 @@ extension Endpoint {
 
         return component!
     }
+    
+    var urlCorrect: String {
+        return "http://api.openweathermap.org/data/2.5/weather?q=Atlanta,us&APPID=12667759ba95ef0d8c6f66004a3ac8f3"
+    }
 
     var request: URLRequest {
-        return URLRequest(url: urlComponent.url!)
+        var urlCompCorrect = URLComponents(string: urlCorrect)!
+        print(urlCompCorrect.url!)
+        print("hi")
+        return URLRequest(url: urlCompCorrect.url!)
+//        return URLRequest(url: urlComponent.url!)
     }
     
 }
@@ -35,32 +43,10 @@ enum WeatherEndpoint: Endpoint {
 //    case fiveDayForecast(city: String)
     case fiveDayForecast(city: String, country: String)
     
-//    var baseURL: URL{
-//        switch self {
-//        case .fiveDayForecast(let city):
-//            return URL(string: "base_url?token=\(token)")!
-//        }
-//    }
-//
-//    var path:String{
-//        switch self {
-//        case .fiveDayForecast:
-//            return "/api/update-password"
-//        }
-//    }
-    
-//    var url: URL? {
-//        var components = URLComponents()
-//        components.scheme = "http"
-//        components.host = "api.openweathermap.org"
-//        components.path = "/data/2.5/forecast?q=Atlanta,us&APPID=12667759ba95ef0d8c6f66004a3ac8f3"
-//        return components.url
-//    }
-    
     var baseUrl: String {
         switch self {
         case .fiveDayForecast(let city, let country):
-            return "http://api.openweathermap.org/data/2.5/forecast?q=\(city),\(country)&APPID=12667759ba95ef0d8c6f66004a3ac8f3"
+            return "http://api.openweathermap.org/"
             //return "/data/2.5/forecast?q=Atlanta,us&APPID=12667759ba95ef0d8c6f66004a3ac8f3"
         }
     }
@@ -68,7 +54,9 @@ enum WeatherEndpoint: Endpoint {
     var path: String {
         switch self {
             case .fiveDayForecast(let city, let country):
-                return ""
+//                let urlComp = URLComponents(string: "/data/2.5/weather?q=\(city),\(country)&APPID=12667759ba95ef0d8c6f66004a3ac8f3")!
+            
+                return "/data/2.5/weather?q=\(city),\(country)&APPID=12667759ba95ef0d8c6f66004a3ac8f3"
                 //return "/data/2.5/forecast?q=Atlanta,us&APPID=12667759ba95ef0d8c6f66004a3ac8f3"
         }
     

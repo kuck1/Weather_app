@@ -46,9 +46,24 @@ extension APIClient {
 //                completion(.error(.badResponse))
 //                return
 //            }
-            
+//            var jsonObject
+//
+//            do {
+//                let jsonObject = try JSONSerialization.jsonObject(with: data!, options: [])
+//                print(JSONSerialization.isValidJSONObject(jsonObject))
+//            }
+//            catch{}
+            print("howdy")
+//            guard let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: []) else {
+//                try? print(JSONSerialization.jsonObject(with: data!, options: []))
+////                else do { return }
+//                print("hello")
+//                return
+//            }
             guard let value = try? JSONDecoder().decode(V.self, from: data!) else {
-//                print(response)
+//                let string = String(data: data!, encoding: .utf8)
+                let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: [])
+                print(JSONSerialization.isValidJSONObject(jsonObject))
                 completion(.error(.jsonDecoder))
                 return
             }
