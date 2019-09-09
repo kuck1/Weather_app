@@ -12,6 +12,10 @@ class Weather: Codable {
     let weather : Weather1
 }
 
+struct Base: Codable {
+    let base : String
+}
+
 
 struct Weather1: Codable {
     let id : Int

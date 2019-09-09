@@ -54,17 +54,32 @@ extension APIClient {
 //            }
 //            catch{}
             print("howdy")
-//            guard let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: []) else {
-//                try? print(JSONSerialization.jsonObject(with: data!, options: []))
-////                else do { return }
-//                print("hello")
-//                return
-//            }
-            guard let value = try? JSONDecoder().decode(V.self, from: data!) else {
-//                let string = String(data: data!, encoding: .utf8)
-                let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: [])
-                print(JSONSerialization.isValidJSONObject(jsonObject))
-                completion(.error(.jsonDecoder))
+            let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:Any]
+//            print(JSONSerialization.isValidJSONObject(jsonObject))
+//            print(jsonObject)
+//            print("hee how")
+            do {
+                let dictionaryFromJSON = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:Any]
+                let jsonItem = dictionaryFromJSON["weather"] as? NSArray
+                let jsonData = try JSONSerialization.data(withJSONObject: jsonItem!, options: [])
+                let responseModel = try JSONDecoder().decode([Weather1].self, from: jsonData)
+                print(responseModel)
+                print("yee haw")
+            } catch {}
+            
+            guard let userDictionary = try? JSONDecoder().decode([String: Weather1].self, from: jsonObject as! Data) else {
+                print ("decode fail")
+                return
+            }
+            
+            print(userDictionary)
+            print("Yipee")
+            
+            guard let value = try? JSONDecoder().decode(V.self, from: jsonObject as! Data) else {
+//                let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: [])
+//                print(JSONSerialization.isValidJSONObject(jsonObject))
+//                completion(.error(.jsonDecoder))
+                print("greetings")
                 return
             }
             completion(.value(value))
