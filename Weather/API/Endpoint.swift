@@ -24,7 +24,7 @@ extension Endpoint {
     }
     
     var urlCorrect: String {
-        return "http://api.openweathermap.org/data/2.5/weather?q=Atlanta,us&APPID=12667759ba95ef0d8c6f66004a3ac8f3"
+        return "http://api.openweathermap.org/data/2.5/forecast?q=Atlanta,us&APPID=12667759ba95ef0d8c6f66004a3ac8f3"
     }
 
     var request: URLRequest {

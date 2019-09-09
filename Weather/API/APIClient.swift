@@ -60,14 +60,25 @@ extension APIClient {
 //            print("hee how")
             do {
                 let dictionaryFromJSON = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:Any]
-                let jsonItem = dictionaryFromJSON["weather"] as? NSArray
+                print("y")
+                let jsonItem = dictionaryFromJSON["list"] as? NSArray
+                print("yee")
                 let jsonData = try JSONSerialization.data(withJSONObject: jsonItem!, options: [])
-                let responseModel = try JSONDecoder().decode([Weather1].self, from: jsonData)
+                print("yee h")
+                let convertedString = String(data: jsonData, encoding: String.Encoding.utf8) // the data will be converted to the string
+//                print(convertedString!) // <-- here is ur string
+                
+                let responseModel = try JSONDecoder().decode([List].self, from: jsonData)
                 print(responseModel)
                 print("yee haw")
-            } catch {}
+            } catch {
+                print(error)
+                print("darn")
+            }
             
-            guard let userDictionary = try? JSONDecoder().decode([String: Weather1].self, from: jsonObject as! Data) else {
+            return
+            
+            guard let userDictionary = try? JSONDecoder().decode([String: Weather].self, from: jsonObject as! Data) else {
                 print ("decode fail")
                 return
             }

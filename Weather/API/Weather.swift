@@ -8,47 +8,79 @@
 
 import Foundation
 
+//class Weather: Codable {
+//    let weather : Weather1
+//}
+//
+//struct Weather1: Codable {
+//    let id : Int
+//    let main : String
+//    let description : String
+//    let icon : String
+//
+//    private enum CodeingKeys: String, CodingKey {
+//        case id = "id"
+//        case main = "main"
+//        case description = "description"
+//        case icon = "icon"
+//    }
+//}
+
+
 class Weather: Codable {
-    let weather : Weather1
-}
-
-struct Base: Codable {
-    let base : String
+    let list : List
 }
 
 
-struct Weather1: Codable {
-    let id : Int
-    let main : String
-    let description : String
-    let icon : String
-    
+struct List: Codable {
+    let dt : Int?
+    let main : Main?
+    let weather : [Weather1]?
+    let clouds : Clouds?
+    let wind : Wind?
+    let rain : Rain?
+    let sys : Sys?
+    let dt_txt : String?
+
     private enum CodeingKeys: String, CodingKey {
-        case id = "id"
-        case main = "main"
-        case description = "description"
-        case icon = "icon"
+        case clouds = "clouds"
     }
 }
 
+struct Main: Codable {
+    let temp : Decimal
+    let temp_min : Decimal
+    let temp_max : Decimal
+    let pressure : Decimal
+    let sea_level : Decimal
+    let grnd_level : Decimal
+    let humidity : Int
+    let temp_kf : Decimal
+}
 
-//class Weather: Codable {
-//    let list : List
-//}
-//
-//
-//struct List: Codable {
-//    let main : Main
-//
-//    private enum CodeingKeys: String, CodingKey {
-//        case main = "main"
-//    }
-//}
-//
-//struct Main: Codable {
-//    let temp : Int
-//
-//    private enum CodeingKeys: String, CodingKey {
-//        case temp = "temp"
-//    }
-//}
+struct Weather1: Codable {
+        let id : Int
+        let main : String
+        let description : String
+        let icon : String
+}
+
+struct Clouds: Codable {
+    let all : Int
+}
+
+struct Wind: Codable {
+    let speed : Decimal
+    let deg : Decimal
+}
+
+struct Rain: Codable {
+    let three_hour : Decimal?
+    private enum CodeingKeys: String, CodingKey {
+        case three_hour = "3h"
+    }
+}
+
+struct Sys: Codable {
+    let pod : String
+}
