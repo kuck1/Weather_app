@@ -25,6 +25,7 @@ protocol APIClient {
     func fetch<V: Codable> (with request: URLRequest, completion: @escaping (Either<V, APIError>) -> Void)
 }
 
+
 extension APIClient {
     func fetch<V: Codable> (with request: URLRequest, completion: @escaping (Either<V, APIError>) -> Void){
         let task = session.dataTask(with: request) { (data, response, error) in
@@ -54,46 +55,37 @@ extension APIClient {
 //            }
 //            catch{}
             print("howdy")
-            let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:Any]
-//            print(JSONSerialization.isValidJSONObject(jsonObject))
-//            print(jsonObject)
-//            print("hee how")
+
             do {
                 let dictionaryFromJSON = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:Any]
                 print("y")
+
                 let jsonItem = dictionaryFromJSON["list"] as? NSArray
                 print("yee")
+                
                 let jsonData = try JSONSerialization.data(withJSONObject: jsonItem!, options: [])
                 print("yee h")
-                let convertedString = String(data: jsonData, encoding: String.Encoding.utf8) // the data will be converted to the string
-//                print(convertedString!) // <-- here is ur string
                 
+    //                let convertedString = String(data: jsonData, encoding: String.Encoding.utf8) // the data will be converted to the string
+    //                print(convertedString!) // <-- here is ur string
                 let responseModel = try JSONDecoder().decode([List].self, from: jsonData)
-                print(responseModel)
-                print("yee haw")
-            } catch {
-                print(error)
+    //                print(responseModel)
+    //                print("yee haw")
+        
+    //            guard let value = try? JSONDecoder().decode(V.self, from: jsonObject as! Data) else {
+    ////                let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: [])
+    ////                print(JSONSerialization.isValidJSONObject(jsonObject))
+    ////                completion(.error(.jsonDecoder))
+    //                print("greetings")
+    //                return
+    //            }
+                completion(.value(responseModel))
+            }
+            catch {
                 print("darn")
+                print(error)
+                completion(.error(.jsonDecoder))
             }
-            
-            return
-            
-            guard let userDictionary = try? JSONDecoder().decode([String: Weather].self, from: jsonObject as! Data) else {
-                print ("decode fail")
-                return
-            }
-            
-            print(userDictionary)
-            print("Yipee")
-            
-            guard let value = try? JSONDecoder().decode(V.self, from: jsonObject as! Data) else {
-//                let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: [])
-//                print(JSONSerialization.isValidJSONObject(jsonObject))
-//                completion(.error(.jsonDecoder))
-                print("greetings")
-                return
-            }
-            completion(.value(value))
         }
         task.resume()
     }
