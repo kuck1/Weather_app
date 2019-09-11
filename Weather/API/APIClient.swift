@@ -8,9 +8,9 @@
 
 import Foundation
 
-enum Either<V, E: Error> {
-    case value(V)
-    case error(E)
+enum Either<V, APIError> {
+    case value(Array<List>)
+    case error(APIError)
 }
 
 enum APIError: Error {
@@ -22,12 +22,12 @@ enum APIError: Error {
 
 protocol APIClient {
     var session : URLSession {get}
-    func fetch<V: Codable> (with request: URLRequest, completion: @escaping (Either<V, APIError>) -> Void)
+    func fetch (with request: URLRequest, completion: @escaping (Either<Any, APIError>) -> Void)
 }
 
 
 extension APIClient {
-    func fetch<V: Codable> (with request: URLRequest, completion: @escaping (Either<V, APIError>) -> Void){
+    func fetch (with request: URLRequest, completion: @escaping (Either<Any, APIError>) -> Void){
         let task = session.dataTask(with: request) { (data, response, error) in
             guard error == nil else  {
                 completion(.error(.apiError))
@@ -68,10 +68,14 @@ extension APIClient {
                 
     //                let convertedString = String(data: jsonData, encoding: String.Encoding.utf8) // the data will be converted to the string
     //                print(convertedString!) // <-- here is ur string
-                let responseModel = try JSONDecoder().decode([List].self, from: jsonData)
-    //                print(responseModel)
-    //                print("yee haw")
-        
+                let responseModel = try JSONDecoder().decode(Array<List>.self, from: jsonData)
+                print(responseModel)
+                print("yee haw")
+     
+                let jsonObject = try JSONSerialization.jsonObject(with: data!, options: [])
+                print(JSONSerialization.isValidJSONObject(jsonObject))
+//                let value = try JSONDecoder().decode(V.self, from: jsonObject as! Data)
+                
     //            guard let value = try? JSONDecoder().decode(V.self, from: jsonObject as! Data) else {
     ////                let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: [])
     ////                print(JSONSerialization.isValidJSONObject(jsonObject))
@@ -79,6 +83,7 @@ extension APIClient {
     //                print("greetings")
     //                return
     //            }
+//                completion(.value(value))
                 completion(.value(responseModel))
             }
             catch {

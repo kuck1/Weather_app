@@ -31,6 +31,9 @@ class Weather: Codable {
     let list : List
 }
 
+//struct List: Codable {
+//    let array : [Array]
+//}
 
 struct List: Codable {
     let dt : Int?
