@@ -10,6 +10,8 @@ import UIKit
 
 class WeatherTableViewController: UITableViewController {
 
+    var cellViewModels = [WeatherCellViewModel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,8 +21,16 @@ class WeatherTableViewController: UITableViewController {
         let weatherEndpoint = WeatherEndpoint.fiveDayForecast(city: "Atlanta", country: "us")
         weatherApi.weather(with: weatherEndpoint) { (either) in
             switch either {
-            case .value(let Main):
-                print(Main)
+            case .value(let ListA):
+                print("Made it")
+                print(ListA)
+                var ListB: [List] = ListA
+                self.cellViewModels = ListA.weather.map {
+                    WeatherCellViewModel(description: $0.description)
+                    }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             case .error(let error):
                 print(error)
             }
@@ -29,14 +39,14 @@ class WeatherTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return cellViewModels.count
+//    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return cellViewModels.count
     }
 
     
@@ -44,7 +54,9 @@ class WeatherTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell", for: indexPath)
 
         // Configure the cell...
-
+        let cellViewModel = cellViewModels[indexPath.row]
+//        cell.textLabel?.text = cellViewModel.day
+        cell.detailTextLabel?.text = cellViewModel.description
         return cell
     }
 

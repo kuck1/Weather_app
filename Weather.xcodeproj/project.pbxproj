@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CCA056E12329E47400A72CEE /* WeatherCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA056E02329E47300A72CEE /* WeatherCellViewModel.swift */; };
 		CCB4551C23218BD600402B68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB4551B23218BD600402B68 /* AppDelegate.swift */; };
 		CCB4552123218BD600402B68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCB4551F23218BD600402B68 /* Main.storyboard */; };
 		CCB4552323218BD900402B68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCB4552223218BD900402B68 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CCA056E02329E47300A72CEE /* WeatherCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCellViewModel.swift; sourceTree = "<group>"; };
 		CCB4551823218BD600402B68 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCB4551B23218BD600402B68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCB4552023218BD600402B68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 		CCB455492321904D00402B68 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CCA056E02329E47300A72CEE /* WeatherCellViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				CCB4554C232191DB00402B68 /* WeatherTableViewController.swift in Sources */,
 				CCB4554F232195FD00402B68 /* Weather.swift in Sources */,
 				CCB4551C23218BD600402B68 /* AppDelegate.swift in Sources */,
+				CCA056E12329E47400A72CEE /* WeatherCellViewModel.swift in Sources */,
 				CCB455512321995600402B68 /* APIClient.swift in Sources */,
 				CCB4555323219FDD00402B68 /* Endpoint.swift in Sources */,
 			);

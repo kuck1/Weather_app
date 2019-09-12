@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Either<V, APIError> {
+enum Either<List, APIError> {
     case value(Array<List>)
     case error(APIError)
 }
@@ -22,12 +22,12 @@ enum APIError: Error {
 
 protocol APIClient {
     var session : URLSession {get}
-    func fetch (with request: URLRequest, completion: @escaping (Either<Any, APIError>) -> Void)
+    func fetch (with request: URLRequest, completion: @escaping (Either<List, APIError>) -> Void)
 }
 
 
 extension APIClient {
-    func fetch (with request: URLRequest, completion: @escaping (Either<Any, APIError>) -> Void){
+    func fetch (with request: URLRequest, completion: @escaping (Either<List, APIError>) -> Void){
         let task = session.dataTask(with: request) { (data, response, error) in
             guard error == nil else  {
                 completion(.error(.apiError))
