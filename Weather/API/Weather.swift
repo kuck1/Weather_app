@@ -28,14 +28,14 @@ import Foundation
 
 
 class Weather: Codable {
-    let list : List
+    let list : List1
 }
 
-//struct List: Codable {
-//    let array : [Array]
-//}
+struct List1: Codable {
+    let array : ArrayData
+}
 
-struct List: Codable {
+struct ArrayData: Codable {
     let dt : Int?
     let main : Main?
     let weather : [Weather1]?

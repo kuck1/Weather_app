@@ -15,9 +15,9 @@ class WeatherAPIClient: APIClient {
         self.session = session
     }
     
-    func weather(with endpoint: WeatherEndpoint, completion: @escaping (Either<List, APIError>) -> Void){
+    func weather(with endpoint: WeatherEndpoint, completion: @escaping (Either<List1, APIError>) -> Void){
         let request = endpoint.request
-        self.fetch(with: request) { (either: Either<List, APIError>) in
+        self.fetch(with: request) { (either: Either<List1, APIError>) in
             switch either {
             case .value(let weather):
                 completion(.value(weather))

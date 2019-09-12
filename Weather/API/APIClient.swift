@@ -8,8 +8,8 @@
 
 import Foundation
 
-enum Either<List, APIError> {
-    case value(Array<List>)
+enum Either<List1, APIError> {
+    case value(List1)
     case error(APIError)
 }
 
@@ -22,12 +22,12 @@ enum APIError: Error {
 
 protocol APIClient {
     var session : URLSession {get}
-    func fetch (with request: URLRequest, completion: @escaping (Either<List, APIError>) -> Void)
+    func fetch (with request: URLRequest, completion: @escaping (Either<List1, APIError>) -> Void)
 }
 
 
 extension APIClient {
-    func fetch (with request: URLRequest, completion: @escaping (Either<List, APIError>) -> Void){
+    func fetch (with request: URLRequest, completion: @escaping (Either<List1, APIError>) -> Void){
         let task = session.dataTask(with: request) { (data, response, error) in
             guard error == nil else  {
                 completion(.error(.apiError))
@@ -68,7 +68,7 @@ extension APIClient {
                 
     //                let convertedString = String(data: jsonData, encoding: String.Encoding.utf8) // the data will be converted to the string
     //                print(convertedString!) // <-- here is ur string
-                let responseModel = try JSONDecoder().decode(Array<List>.self, from: jsonData)
+                let responseModel = try JSONDecoder().decode(List1.self, from: jsonData)
                 print(responseModel)
                 print("yee haw")
      

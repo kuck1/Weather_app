@@ -21,13 +21,13 @@ class WeatherTableViewController: UITableViewController {
         let weatherEndpoint = WeatherEndpoint.fiveDayForecast(city: "Atlanta", country: "us")
         weatherApi.weather(with: weatherEndpoint) { (either) in
             switch either {
-            case .value(let ListA):
+            case .value(let Weather):
                 print("Made it")
-                print(ListA)
-                var ListB: [List] = ListA
-                self.cellViewModels = ListA.weather.map {
+                print(Weather)
+//                var ListB: [List] = ListA
+                self.cellViewModels = Weather.array.weather.map {
                     WeatherCellViewModel(description: $0.description)
-                    }
+                    }!
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
