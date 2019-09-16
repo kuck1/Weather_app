@@ -9,7 +9,7 @@
 import Foundation
 
 enum Either<List1, APIError> {
-    case value(List1)
+    case value(Array<List1>)
     case error(APIError)
 }
 
@@ -68,7 +68,7 @@ extension APIClient {
                 
     //                let convertedString = String(data: jsonData, encoding: String.Encoding.utf8) // the data will be converted to the string
     //                print(convertedString!) // <-- here is ur string
-                let responseModel = try JSONDecoder().decode(List1.self, from: jsonData)
+                let responseModel = try JSONDecoder().decode(Array<List1>.self, from: jsonData)
                 print(responseModel)
                 print("yee haw")
      

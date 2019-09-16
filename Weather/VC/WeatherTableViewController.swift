@@ -10,24 +10,36 @@ import UIKit
 
 class WeatherTableViewController: UITableViewController {
 
-    var cellViewModels = [WeatherCellViewModel]()
+    var cellViewModels = [[WeatherCellViewModel]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let weatherApi = WeatherAPIClient()
 //        let weatherEndpoint = WeatherEndpoint.fiveDayForecast(city: "Atlanta")
 
         let weatherEndpoint = WeatherEndpoint.fiveDayForecast(city: "Atlanta", country: "us")
+        
         weatherApi.weather(with: weatherEndpoint) { (either) in
-            switch either {
+        switch either {
             case .value(let Weather):
                 print("Made it")
                 print(Weather)
-//                var ListB: [List] = ListA
-                self.cellViewModels = Weather.array.weather.map {
-                    WeatherCellViewModel(description: $0.description)
-                    }!
+                do {
+                    let data = try Weather.map {
+                        $0.weather.map {
+                            WeatherCellViewModel(description: $0.description)
+                        }
+                    }
+                    self.cellViewModels = data
+                    print("data")
+                    print(data)
+                } catch {
+                        print("weather endpoint error")
+                    }
+                
+//                self.cellViewModels = Weather.array.weather.map {
+//                    WeatherCellViewModel(description: $0.description)
+//                    }!
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -36,6 +48,7 @@ class WeatherTableViewController: UITableViewController {
             }
         }
     }
+
 
     // MARK: - Table view data source
 
@@ -59,5 +72,4 @@ class WeatherTableViewController: UITableViewController {
         cell.detailTextLabel?.text = cellViewModel.description
         return cell
     }
-
 }

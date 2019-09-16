@@ -31,14 +31,14 @@ class Weather: Codable {
     let list : List1
 }
 
-struct List1: Codable {
-    let array : ArrayData
-}
+//struct List1: Codable {
+//    let array : ArrayData
+//}
 
-struct ArrayData: Codable {
+struct List1: Codable {
     let dt : Int?
     let main : Main?
-    let weather : [Weather1]?
+    let weather : [Weather1]
     let clouds : Clouds?
     let wind : Wind?
     let rain : Rain?
