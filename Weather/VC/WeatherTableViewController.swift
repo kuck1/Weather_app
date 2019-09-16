@@ -10,7 +10,7 @@ import UIKit
 
 class WeatherTableViewController: UITableViewController {
 
-    var cellViewModels = [[WeatherCellViewModel]]()
+    var cellViewModels = [WeatherCellViewModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,18 +19,18 @@ class WeatherTableViewController: UITableViewController {
 
         let weatherEndpoint = WeatherEndpoint.fiveDayForecast(city: "Atlanta", country: "us")
         
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "WeatherCell")
+        
         weatherApi.weather(with: weatherEndpoint) { (either) in
         switch either {
             case .value(let Weather):
-                print("Made it")
-                print(Weather)
                 do {
                     let data = try Weather.map {
                         $0.weather.map {
                             WeatherCellViewModel(description: $0.description)
                         }
                     }
-                    self.cellViewModels = data
+                    self.cellViewModels = data.flatMap { $0 }
                     print("data")
                     print(data)
                 } catch {
@@ -59,17 +59,23 @@ class WeatherTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        print("cellViewModels.count")
+        print(cellViewModels.count)
         return cellViewModels.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell", for: indexPath)
-
+        
         // Configure the cell...
         let cellViewModel = cellViewModels[indexPath.row]
 //        cell.textLabel?.text = cellViewModel.day
-        cell.detailTextLabel?.text = cellViewModel.description
+//        print("hello")
+//        print(cellViewModel.description)
+//        cell.detailTextLabel?.text = cellViewModel.description
+        
+        cell.textLabel?.text = cellViewModel.temp
         return cell
     }
 }

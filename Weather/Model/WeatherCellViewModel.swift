@@ -12,5 +12,4 @@ struct WeatherCellViewModel {
     
 //    let day : String
     let description : String
-    
 }
