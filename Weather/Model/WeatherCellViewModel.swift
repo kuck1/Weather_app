@@ -11,5 +11,6 @@ import Foundation
 struct WeatherCellViewModel {
     
 //    let day : String
-    let description : String
+//    let description : String
+    let temp : Decimal
 }

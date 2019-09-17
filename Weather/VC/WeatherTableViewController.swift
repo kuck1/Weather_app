@@ -25,10 +25,13 @@ class WeatherTableViewController: UITableViewController {
         switch either {
             case .value(let Weather):
                 do {
+//                    let data = try Weather.map {
+//                        $0.weather.map {
+//                            WeatherCellViewModel(description: $0.description)
+//                        }
+//                    }
                     let data = try Weather.map {
-                        $0.weather.map {
-                            WeatherCellViewModel(description: $0.description)
-                        }
+                        WeatherCellViewModel(temp: $0.main!.temp)
                     }
                     self.cellViewModels = data.flatMap { $0 }
                     print("data")
@@ -64,7 +67,6 @@ class WeatherTableViewController: UITableViewController {
         return cellViewModels.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell", for: indexPath)
         
@@ -75,7 +77,20 @@ class WeatherTableViewController: UITableViewController {
 //        print(cellViewModel.description)
 //        cell.detailTextLabel?.text = cellViewModel.description
         
-        cell.textLabel?.text = cellViewModel.temp
+        cell.textLabel?.text = cellViewModel.temp.formattedAmount
+        
         return cell
     }
 }
+
+
+extension Decimal {
+    var formattedAmount: String? {
+        let formatter = NumberFormatter()
+        formatter.generatesDecimalNumbers = true
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        return formatter.string(from: self as NSDecimalNumber)
+    }
+}
+

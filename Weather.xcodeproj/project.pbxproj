@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CCA056E12329E47400A72CEE /* WeatherCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA056E02329E47300A72CEE /* WeatherCellViewModel.swift */; };
+		CCA92C37233038E400977D70 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA92C36233038E400977D70 /* NotificationController.swift */; };
 		CCB4551C23218BD600402B68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB4551B23218BD600402B68 /* AppDelegate.swift */; };
 		CCB4552123218BD600402B68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCB4551F23218BD600402B68 /* Main.storyboard */; };
 		CCB4552323218BD900402B68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCB4552223218BD900402B68 /* Assets.xcassets */; };
@@ -40,6 +41,8 @@
 
 /* Begin PBXFileReference section */
 		CCA056E02329E47300A72CEE /* WeatherCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCellViewModel.swift; sourceTree = "<group>"; };
+		CCA92C36233038E400977D70 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		CCA92C382330399700977D70 /* Weather.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Weather.entitlements; sourceTree = "<group>"; };
 		CCB4551823218BD600402B68 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCB4551B23218BD600402B68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCB4552023218BD600402B68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -107,6 +110,7 @@
 		CCB4551A23218BD600402B68 /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				CCA92C382330399700977D70 /* Weather.entitlements */,
 				CCB4554D232195DE00402B68 /* API */,
 				CCB4554A2321905500402B68 /* VC */,
 				CCB4551B23218BD600402B68 /* AppDelegate.swift */,
@@ -149,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				CCB4554B232191DB00402B68 /* WeatherTableViewController.swift */,
+				CCA92C36233038E400977D70 /* NotificationController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -232,6 +237,11 @@
 				TargetAttributes = {
 					CCB4551723218BD600402B68 = {
 						CreatedOnToolsVersion = 10.3;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					CCB4552B23218BD900402B68 = {
 						CreatedOnToolsVersion = 10.3;
@@ -297,6 +307,7 @@
 			files = (
 				CCEB0AD02321A9DF00A36085 /* WeatherAPIClient.swift in Sources */,
 				CCB4554C232191DB00402B68 /* WeatherTableViewController.swift in Sources */,
+				CCA92C37233038E400977D70 /* NotificationController.swift in Sources */,
 				CCB4554F232195FD00402B68 /* Weather.swift in Sources */,
 				CCB4551C23218BD600402B68 /* AppDelegate.swift in Sources */,
 				CCA056E12329E47400A72CEE /* WeatherCellViewModel.swift in Sources */,
@@ -476,7 +487,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Weather/Weather.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7S4N5JWT7A;
 				INFOPLIST_FILE = Weather/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -493,7 +506,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Weather/Weather.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7S4N5JWT7A;
 				INFOPLIST_FILE = Weather/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
